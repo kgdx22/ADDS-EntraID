@@ -1,5 +1,11 @@
 # Automating Active Directory User Provisioning and Hybrid Identity Synchronization with Microsoft Entra ID
 
+> <sub><span style="color:gray">
+> **NOTE —**
+>
+> This lab was performed in an isolated Windows Server virtual machine configured from a clean installation. Active Directory Domain Services (AD DS) was installed and promoted to a new forest, creating a dedicated Domain Controller used exclusively for testing and validation. No production systems, user accounts, or organizational data were utilized during this project.
+> </span></sub>
+
 This lab demonstrates the implementation of a hybrid identity environment by integrating an on-premises Active Directory Domain Services (AD DS) environment with Microsoft Entra ID using Microsoft Entra Connect.
 
 The project focuses on:
@@ -22,7 +28,7 @@ A CSV file containing user attributes was imported using PowerShell and piped in
 # 2. Create Organizational Unit
 <img width="1919" height="1199" alt="ADDC2" src="https://github.com/user-attachments/assets/0eb549c5-53f0-458e-be0a-a8b179ad891f" /><br>
 ---
-A new OU named **ConnectSyncUsers** was created within Active Directory. Organizational Units provide administrative structure and this will be used to organize users, delegate permissions, and scope synchronization activities<br>
+A dedicated synchronization OU named **ConnectSyncUsers** was created to scope which identities would be synchronized to Microsoft Entra ID. This will be used to organize users, delegate permissions, and scope synchronization activities<br>
 # 3. Move Existing Users into the target OU
 <img width="1919" height="1199" alt="ADDC6" src="https://github.com/user-attachments/assets/57061062-f229-410b-ae89-449ccdae3f33" /><br>
 ---
@@ -30,7 +36,7 @@ Using `Import-Csv`, each user account was identified by its SamAccountName and r
 `Get-ADUser $_.SamAccountName`<br><br>
 The account's DistinguishedName was then passed to:<br><br>
 `Move-ADObject`<br><br>
-to relocate the user object into the ConnectSyncUsers Organizational Unit.<br>
+to relocate the user object into the **ConnectSyncUsers** Organizational Unit.<br>
 
 This demonstrates how Active Directory objects can be programmatically managed and reorganized at scale using PowerShell rather than manually moving accounts through Active Directory Users & Computers<br>
 # 4. Update User Principal Names
@@ -52,7 +58,7 @@ Microsoft Entra Connect was launched and configured to communicate with the on-p
 # 6. Configure OU Filtering
 <img width="1919" height="1199" alt="ADDC5" src="https://github.com/user-attachments/assets/69316060-c42c-44f7-be50-f273122be07f" /><br>
 ---
-OU filtering was configured so that only the ConnectSyncUsers OU would synchronize to Microsoft Entra ID. This reflects a common enterprise practice used to maintain synchronization control and reduce unnecessary cloud objects.<br>
+OU filtering was configured so that only the **ConnectSyncUsers** OU would synchronize to Microsoft Entra ID. This reflects a common enterprise practice used to maintain synchronization control and reduce unnecessary cloud objects.<br>
 # 7. Verify Initial Synchronization
 <img width="1919" height="1199" alt="ADDC7" src="https://github.com/user-attachments/assets/a6202a28-055b-41be-9c2b-1546fad3914e" /><br>
 ---
