@@ -1,4 +1,4 @@
-# ADDS-EntraID
+# Automating Active Directory User Provisioning and Hybrid Identity Synchronization with Microsoft Entra ID
 
 <img width="1919" height="1199" alt="ADDS" src="https://github.com/user-attachments/assets/cee69c0e-981b-4014-bbf0-f9295463fb3f" />
 <img width="1919" height="1199" alt="ADDC2" src="https://github.com/user-attachments/assets/0eb549c5-53f0-458e-be0a-a8b179ad891f" />
